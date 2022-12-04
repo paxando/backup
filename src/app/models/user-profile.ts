@@ -3,8 +3,8 @@ export interface ProfileUser {
   email?: string;
   displayName?: string;
   photoURL?: string;
-  firstName?: string;
-  lastName?: string;
-  phone?: string;
-  address?: string;
+  primeiroNome?: string;
+  ultimoNome?: string;
+  telefone?: string;
+  endereco?: string;
 }

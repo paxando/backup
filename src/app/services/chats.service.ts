@@ -35,13 +35,13 @@ export class ChatsService {
           where('userIds', 'array-contains', user?.uid)
         );
         return collectionData(myQuery, { idField: 'id' }).pipe(
-          map((chats: any) => this.addChatNameAndPic(user?.uid, chats))
+          map((chats: any) => this.adicionarNomeImagem(user?.uid, chats))
         ) as Observable<Chat[]>;
       })
     );
   }
 
-  createChat(otherUser: ProfileUser): Observable<string> {
+  criarChat(otherUser: ProfileUser): Observable<string> {
     const ref = collection(this.firestore, 'chats');
     return this.usersService.currentUserProfile$.pipe(
       take(1),
@@ -64,7 +64,7 @@ export class ChatsService {
     );
   }
 
-  isExistingChat(otherUserId: string): Observable<string | null> {
+  oChatExiste(otherUserId: string): Observable<string | null> {
     return this.myChats$.pipe(
       take(1),
       map((chats) => {
@@ -79,7 +79,7 @@ export class ChatsService {
     );
   }
 
-  addChatMessage(chatId: string, message: string): Observable<any> {
+  adicionarMensagem(chatId: string, message: string): Observable<any> {
     const ref = collection(this.firestore, 'chats', chatId, 'messages');
     const chatRef = doc(this.firestore, 'chats', chatId);
     const today = Timestamp.fromDate(new Date());
@@ -98,19 +98,19 @@ export class ChatsService {
     );
   }
 
-  getChatMessages$(chatId: string): Observable<Message[]> {
+  receberMensagem$(chatId: string): Observable<Message[]> {
     const ref = collection(this.firestore, 'chats', chatId, 'messages');
     const queryAll = query(ref, orderBy('sentDate', 'asc'));
     return collectionData(queryAll) as Observable<Message[]>;
   }
 
-  addChatNameAndPic(currentUserId: string | undefined, chats: Chat[]): Chat[] {
+  adicionarNomeImagem(currentUserId: string | undefined, chats: Chat[]): Chat[] {
     chats.forEach((chat: Chat) => {
       const otherUserIndex =
         chat.userIds.indexOf(currentUserId ?? '') === 0 ? 1 : 0;
       const { displayName, photoURL } = chat.users[otherUserIndex];
-      chat.chatName = displayName;
-      chat.chatPic = photoURL;
+      chat.nomeChat = displayName;
+      chat.imagemChat = photoURL;
     });
 
     return chats;

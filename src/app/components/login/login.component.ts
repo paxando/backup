@@ -12,7 +12,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    senha: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('email');
   }
 
-  get password() {
-    return this.loginForm.get('password');
+  get senha() {
+    return this.loginForm.get('senha');
   }
 
   submit() {
@@ -36,14 +36,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const { email, password } = this.loginForm.value;
+    const { email, senha } = this.loginForm.value;
     this.authService
-      .login(email, password)
+      .login(email, senha)
       .pipe(
         this.toast.observe({
-          success: 'Logged in successfully',
-          loading: 'Logging in...',
-          error: 'There was an error',
+          success: 'Logado com sucesso.',
+          loading: 'Logando...',
+          error: 'Ocorreu um erro.',
         })
       )
       .subscribe(() => {

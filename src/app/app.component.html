@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  Seu Melhor Amigo
+  <button mat-button routerLink="/">Seu Melhor Amigo</button>
   <ng-container *ngIf="user$ | async as user; else loginButton">
     <button mat-button [matMenuTriggerFor]="userMenu">
       <img

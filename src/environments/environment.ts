@@ -12,7 +12,7 @@ export const environment = {
     authDomain: 'seu-melhor-amigo-cd81a.firebaseapp.com',
     messagingSenderId: '337278480793',
   },
-  production: false
+  production: true
 };
 
 

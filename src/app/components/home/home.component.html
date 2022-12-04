@@ -4,7 +4,7 @@
       <mat-form-field>
         <input
           matInput
-          placeholder="Search for users and start a chat"
+          placeholder="Procurar usuário."
           [matAutocomplete]="users"
           [formControl]="searchControl"
         />
@@ -13,7 +13,7 @@
         <mat-option
           *ngFor="let user of users$ | async"
           [value]="''"
-          (click)="createChat(user)"
+          (click)="criarChat(user)"
         >
           {{ user.displayName }}
         </mat-option>
@@ -25,11 +25,11 @@
         <img
           matListAvatar
           [src]="
-            chat.chatPic ? chat.chatPic : 'assets/images/image-placeholder.png'
+            chat.imagemChat ? chat.imagemChat : 'assets/images/image-placeholder.png'
           "
         />
         <p mat-line class="chat-title">
-          <span class="chat-name">{{ chat.chatName }}</span
+          <span class="chat-name">{{ chat.nomeChat }}</span
           ><span class="chat-date">{{
             chat.lastMessageDate | dateDisplay
           }}</span>
@@ -46,12 +46,12 @@
     >
       <img
         [src]="
-          selectedChat.chatPic
-            ? selectedChat.chatPic
+          selectedChat.imagemChat
+            ? selectedChat.imagemChat
             : 'assets/images/image-placeholder.png'
         "
       />
-      <h2>{{ selectedChat.chatName }}</h2>
+      <h2>{{ selectedChat.nomeChat }}</h2>
     </div>
     <ng-template #noChatSelected>
       <h2>Messages</h2>
@@ -82,9 +82,9 @@
           matInput
           placeholder="Enter your message..."
           [formControl]="messageControl"
-          (keydown.enter)="sendMessage()"
+          (keydown.enter)="enviarMensagem()"
         />
-        <button mat-icon-button matSuffix (click)="sendMessage()">
+        <button mat-icon-button matSuffix (click)="enviarMensagem()">
           <mat-icon>send</mat-icon>
         </button>
       </mat-form-field>

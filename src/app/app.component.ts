@@ -10,6 +10,7 @@ import { UsersService } from './services/users.service';
 })
 export class AppComponent {
   user$ = this.usersService.currentUserProfile$;
+  title: any;
 
   constructor(
     private authService: AuthenticationService,

@@ -13,23 +13,23 @@
       <mat-icon>edit</mat-icon>
     </button>
   </div>
-  <input #inputField type="file" hidden (change)="uploadImage($event, user)" />
-  <form class="margin-top" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+  <input #inputField type="file" hidden (change)="carregarImagem($event, user)" />
+  <form class="margin-top" [formGroup]="profileForm" (ngSubmit)="salvarPerfil()">
     <div class="row">
       <mat-form-field>
         <input
           type="text"
           matInput
-          formControlName="firstName"
-          placeholder="First Name"
+          formControlName="primeiroNome"
+          placeholder="Primeiro Nome"
         />
       </mat-form-field>
       <mat-form-field>
         <input
           type="text"
           matInput
-          formControlName="lastName"
-          placeholder="Last Name"
+          formControlName="ultimoNome"
+          placeholder="Ultimo Nome"
         />
       </mat-form-field>
     </div>
@@ -40,14 +40,14 @@
           type="text"
           matInput
           formControlName="displayName"
-          placeholder="Display Name"
+          placeholder="Nome Exibido"
         />
       </mat-form-field>
       <mat-form-field>
         <input
           type="number"
           matInput
-          formControlName="phone"
+          formControlName="telefone"
           placeholder="Phone"
         />
       </mat-form-field>
@@ -56,8 +56,8 @@
       <input
         type="text"
         matInput
-        formControlName="address"
-        placeholder="Address"
+        formControlName="endereco"
+        placeholder="Endereço"
       />
     </mat-form-field>
 

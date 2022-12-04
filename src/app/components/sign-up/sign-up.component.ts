@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import {
   AbstractControl,
   FormControl,
@@ -15,10 +16,10 @@ import { UsersService } from 'src/app/services/users.service';
 
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
+    const senha = control.get('senha')?.value;
+    const confirmaSenha = control.get('confirmaSenha')?.value;
 
-    if (password && confirmPassword && password !== confirmPassword) {
+    if (senha && confirmaSenha && senha !== confirmaSenha) {
       return {
         passwordsDontMatch: true,
       };
@@ -36,10 +37,10 @@ export function passwordsMatchValidator(): ValidatorFn {
 export class SignUpComponent implements OnInit {
   signUpForm = new FormGroup(
     {
-      name: new FormControl('', Validators.required),
+      nome: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.email, Validators.required]),
-      password: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required),
+      senha: new FormControl('', Validators.required),
+      confirmaSenha: new FormControl('', Validators.required),
     },
     { validators: passwordsMatchValidator() }
   );
@@ -53,31 +54,31 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  get name() {
-    return this.signUpForm.get('name');
+  get nome() {
+    return this.signUpForm.get('nome');
   }
 
   get email() {
     return this.signUpForm.get('email');
   }
 
-  get password() {
-    return this.signUpForm.get('password');
+  get senha() {
+    return this.signUpForm.get('senha');
   }
 
-  get confirmPassword() {
-    return this.signUpForm.get('confirmPassword');
+  get confirmaSenha() {
+    return this.signUpForm.get('confirmaSenha');
   }
 
   submit() {
     if (!this.signUpForm.valid) return;
 
-    const { name, email, password } = this.signUpForm.value;
+    const { nome, email, senha } = this.signUpForm.value;
     this.authService
-      .signUp(email, password)
+      .cadastro(email, senha)
       .pipe(
         switchMap(({ user: { uid } }) =>
-          this.usersService.addUser({ uid, email, displayName: name })
+          this.usersService.addUser({ uid, email, displayName: nome })
         ),
         this.toast.observe({
           success: 'Congrats! You are all signed up',

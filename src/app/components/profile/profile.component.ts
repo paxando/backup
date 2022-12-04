@@ -21,9 +21,9 @@ export class ProfileComponent implements OnInit {
   profileForm = new FormGroup({
     uid: new FormControl(''),
     displayName: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    phone: new FormControl(''),
+    primeiroNome: new FormControl(''),
+    ultimoNome: new FormControl(''),
+    telefone: new FormControl(''),
     address: new FormControl(''),
   });
 
@@ -42,14 +42,14 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  uploadImage(event: any, user: ProfileUser) {
+  carregarImagem(event: any, user: ProfileUser) {
     this.imageUploadService
-      .uploadImage(event.target.files[0], `images/profile/${user.uid}`)
+      .carregarImagem(event.target.files[0], `images/profile/${user.uid}`)
       .pipe(
         this.toast.observe({
-          loading: 'Image is being uploaded...',
-          success: 'Image uploaded!',
-          error: 'There was an error in uploading',
+          loading: 'Carregando imagem...',
+          success: 'Imagem carregada!',
+          error: 'Houve um erro ao carregar a imagem.',
         }),
         concatMap((photoURL) =>
           this.usersService.updateUser({ uid: user.uid, photoURL })
@@ -58,15 +58,15 @@ export class ProfileComponent implements OnInit {
       .subscribe();
   }
 
-  saveProfile() {
+  salvarPerfil() {
     const profileData = this.profileForm.value;
     this.usersService
       .updateUser(profileData)
       .pipe(
         this.toast.observe({
-          loading: 'Updating data...',
-          success: 'Data has been updated',
-          error: 'There was an error in updating the data',
+          loading: 'Aguarde...',
+          success: 'Dados atualizados!',
+          error: 'Houve um erro ao atualizar os dados.',
         })
       )
       .subscribe();

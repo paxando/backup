@@ -21,11 +21,11 @@ export class AuthenticationService {
     return from(signInWithEmailAndPassword(this.auth, username, password));
   }
 
-  signUp(email: string, password: string) {
+  cadastro(email: string, password: string) {
     return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 
-  updateProfileData(profileData: Partial<UserInfo>): Observable<any> {
+  atualizaPerfil(profileData: Partial<UserInfo>): Observable<any> {
     const user = this.auth.currentUser;
     return of(user).pipe(
       concatMap((user) => {

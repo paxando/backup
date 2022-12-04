@@ -60,20 +60,20 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.messages$ = this.chatListControl.valueChanges.pipe(
       map((value) => value[0]),
-      switchMap((chatId) => this.chatsService.getChatMessages$(chatId)),
+      switchMap((chatId) => this.chatsService.receberMensagem$(chatId)),
       tap(() => {
         this.scrollToBottom();
       })
     );
   }
 
-  createChat(user: ProfileUser) {
+  criarChat(user: ProfileUser) {
     this.chatsService
-      .isExistingChat(user.uid)
+      .oChatExiste(user.uid)
       .pipe(
         switchMap((chatId) => {
           if (!chatId) {
-            return this.chatsService.createChat(user);
+            return this.chatsService.criarChat(user);
           } else {
             return of(chatId);
           }
@@ -84,12 +84,12 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  sendMessage() {
+  enviarMensagem() {
     const message = this.messageControl.value;
     const selectedChatId = this.chatListControl.value[0];
     if (message && selectedChatId) {
       this.chatsService
-        .addChatMessage(selectedChatId, message)
+        .adicionarMensagem(selectedChatId, message)
         .subscribe(() => {
           this.scrollToBottom();
         });
